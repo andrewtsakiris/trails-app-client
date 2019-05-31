@@ -16,7 +16,7 @@ export default class Profile extends Component {
   async componentDidMount() {
     try {
       const completedTrails = API.get("trails", "listtrails/completed");
-      const savedTrails = API.get("trails", "trails/saved");
+      const savedTrails = API.get("trails", "listtrails/saved");
       this.setState({
         completedTrails,
         savedTrails
@@ -27,9 +27,13 @@ export default class Profile extends Component {
   }
 
   renderList(sTrails, cTrails) {
-    return (
-      0
-    );
+    console.log(sTrails)
+    if(sTrails === undefined) {
+     return <p>No saved trails</p>
+    }
+    else {
+      return <p>hi {sTrails.length}</p>
+    }
   }
 
   render() {
