@@ -11,6 +11,7 @@ import {
 
 import config from "../config";
 import "./Search.css";
+import { API } from "aws-amplify";
 
 export default class Search extends Component {
   constructor(props) {
@@ -50,8 +51,23 @@ export default class Search extends Component {
       .then(data => this.setState({ trails: data }));
   };
 
-  submitSave = event => {
+  submitSave = async (event,id) => {
     console.log("save press");
+    try {
+      API.post("trails", "/trails", {
+        body: {
+          trailStatus: "saved",
+          trailId: id,
+          userComment: "hi"
+        }
+        
+      });
+      console.log("success!")
+    }
+    catch (e) {
+      alert(e);
+    }
+    
   };
 
   submitComplete = event => {
@@ -72,7 +88,7 @@ export default class Search extends Component {
                 ? trail.summary
                 : "No description available"}
 
-              <Button type="submit" onClick={this.submitSave}>
+              <Button type="submit" onClick={(e) => this.submitSave(e,trail.id)}>
                 Save
               </Button>
               <Button type="submit" onClick={this.submitComplete}>

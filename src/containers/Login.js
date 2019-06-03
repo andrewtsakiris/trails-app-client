@@ -10,13 +10,13 @@ export default class Login extends Component {
     super(props);
 
     this.state = {
-      username: "",
+      email: "",
       password: ""
     };
   }
 
   validateForm() {
-    return this.state.username.length > 0 && this.state.password.length > 0;
+    return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
   handleChange = event => {
@@ -29,7 +29,7 @@ export default class Login extends Component {
     event.preventDefault();
   
     try {
-      await Auth.signIn(this.state.username, this.state.password);
+      await Auth.signIn(this.state.email, this.state.password);
       this.props.userHasAuthenticated(true);
       this.props.history.push("/");
 
@@ -46,11 +46,11 @@ export default class Login extends Component {
       <div className="Login">
           <p>Log IN bois</p>
           <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="username" bsSize="large">
-            <ControlLabel>Username</ControlLabel>
+          <FormGroup controlId="email" bsSize="large">
+            <ControlLabel>Email</ControlLabel>
             <FormControl
               autoFocus
-              value={this.state.username}
+              value={this.state.email}
               onChange={this.handleChange}
             />
           </FormGroup>
