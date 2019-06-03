@@ -107,10 +107,22 @@ export default class Search extends Component {
   };
 
   isDisabled = trail => {
-    if(this.state.userTrails.find(element => element.trailId === trail.id)) {
+    return this.isSaved(trail) || this.isCompleted(trail);
+  }
+
+  isSaved = trail => {
+    if(this.state.userTrails.find(element => element.trailId === trail.id && element.trailStatus === "saved")){
       return true;
     }
     return false;
+  }
+
+  isCompleted = trail => {
+    if(this.state.userTrails.find(element => element.trailId === trail.id && element.trailStatus === "completed")){
+      return true;
+    }
+    return false;
+
   }
 
 
@@ -124,11 +136,10 @@ export default class Search extends Component {
               {trail.summary !== "Needs Summary" && trail.summary.length > 3
                 ? trail.summary
                 : "No description available"}
-              <Button type="submit" disabled={this.isDisabled(trail)} onClick={(e) => this.submitSave(e,trail.id)}>
-                Save
-              </Button>
+              <Button text={this.isDisabled(trail)? "Saved" : "Save"}type="submit" disabled={this.isDisabled(trail)} onClick={(e) => this.submitSave(e,trail.id)}>
+              {this.isSaved(trail)? "Saved" : "Save"} </Button>
               <Button type="submit" disabled={this.isDisabled(trail)} onClick={(e) => this.submitComplete(e, trail.id)}>
-                Mark Complete
+              {this.isCompleted(trail)? "Completed" : "Complete"}
               </Button>
             </ListGroupItem>
           ))}
