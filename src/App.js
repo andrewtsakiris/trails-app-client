@@ -65,7 +65,7 @@ class App extends Component {
           
         </Navbar.Collapse>
     </Navbar>
-        : <p></p>
+        : <p id="hiddenP" hidden></p>
 
         }
         
