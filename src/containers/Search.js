@@ -6,7 +6,8 @@ import {
   ControlLabel,
   Button,
   ListGroup,
-  ListGroupItem
+  ListGroupItem,
+  Panel
 } from "react-bootstrap";
 
 import config from "../config";
@@ -139,34 +140,50 @@ export default class Search extends Component {
   renderList(t) {
     if (typeof t !== "undefined") {
       return (
-        <ListGroup>
+        <div className="Trails">
           {t.length > 0 ? t.map(trail => (
-            <ListGroupItem
-              header={`${trail.name} (${trail.length} mi) - Rating: ${
-                trail.stars
-              }/5`}
-            >
-              {trail.summary !== "Needs Summary" && trail.summary.length > 3
-                ? trail.summary
-                : "No description available"}
+            
+            <Panel>
+              <Panel.Heading>
+                <Panel.Title>
+                {trail.name}
+                </Panel.Title>
+                </Panel.Heading>
+                <Panel.Body>
+                <p>{`Length: ${trail.length} mi`}</p>
+                <p>{`Elevation Gain: ${trail.ascent} ft`}</p>
+                <p>{`Rating: ${trail.stars}/5`}</p>
+                {trail.summary !== "Needs Summary" && trail.summary.length > 3
+                ? <p>{`Description: ${trail.summary}`} </p>
+                : <p>No description available</p>}
+                
+                </Panel.Body>
+             
+              <Panel.Footer>
+
+              {this.isCompleted(trail) ? null : 
               <Button
-                text={this.isDisabled(trail) ? "Saved" : "Save"}
                 type="submit"
                 disabled={this.isDisabled(trail)}
                 onClick={e => this.submitSave(e, trail.id)}
               >
                 {this.isSaved(trail) ? "Saved" : "Save"}{" "}
-              </Button>
+              </Button> }
+
+
+              {this.isSaved(trail) ? null :
               <Button
                 type="submit"
                 disabled={this.isDisabled(trail)}
                 onClick={e => this.submitComplete(e, trail.id)}
               >
-                {this.isCompleted(trail) ? "Completed" : "Complete"}
-              </Button>
-            </ListGroupItem>
+                {this.isCompleted(trail) ? "Completed" : "Mark Complete"}
+              </Button>}
+              </Panel.Footer>
+            </Panel>
+            
           )) : <p>No trails found for that location</p>}
-        </ListGroup>
+        </div>
       );
     }
     return <p> No trails found </p>;
@@ -205,7 +222,9 @@ export default class Search extends Component {
             Find Trails
           </Button>
         </form>
-        {this.renderList(this.state.trails)}
+        <div className="TrailsContainer">
+          {this.renderList(this.state.trails)}
+        </div>
       </div>
     );
   }

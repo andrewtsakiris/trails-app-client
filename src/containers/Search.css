@@ -1,9 +1,8 @@
-.NewNote form {
-    padding-bottom: 15px;
-  }
-  
-  .NewNote form textarea {
-    height: 300px;
-    font-size: 24px;
-  }
+.Trails {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%
+}
+
+
   
