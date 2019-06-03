@@ -50,7 +50,7 @@ class App extends Component {
         {this.state.isAuthenticated
         ? <Navbar fluid collapseOnSelect>
         <Navbar.Brand>
-          <Link to="/">Trail Hero 🤪🌲</Link>
+          <Link to="/">Off the Trails🌲</Link>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse >
@@ -65,7 +65,7 @@ class App extends Component {
           
         </Navbar.Collapse>
     </Navbar>
-        : <p></p>
+        : <p id="hiddenP" hidden></p>
 
         }
         

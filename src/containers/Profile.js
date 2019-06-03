@@ -90,7 +90,8 @@ export default class Profile extends Component {
     API.put("trails", `/trails/${trail.entryId}`, {
       body: {
         userComment: trail.userComment,
-        trailStatus: "completed"
+        trailStatus: "completed",
+        trailId: trail.trailId,
       }
     });
     trail.trailStatus = "completed";
