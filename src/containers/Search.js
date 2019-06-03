@@ -20,8 +20,31 @@ export default class Search extends Component {
     this.state = {
       longitude: "-76",
       latitude: "44",
-      trails: []
+      trails: [],
+      userTrails: []
     };
+  }
+
+  async updateUserTrails() {
+    try {
+      const userData = await API.get("trails", "/trails");
+      
+      let userTrails = [];
+      userData.forEach((entry) => {
+        userTrails.push({
+          trailId: entry.trailId,
+          trailStatus: entry.trailStatus
+        });
+      })
+      this.setState({userTrails});
+    }
+    catch (e) {
+      alert(e);
+    }
+  }
+  async componentDidMount() {
+    
+    this.updateUserTrails();
   }
 
   validateForm() {
@@ -45,24 +68,22 @@ export default class Search extends Component {
     }&lon=${
       this.state.longitude
     }&maxDistance=10&key=200480158-4a1a03c6d4e52f1867f9e2bc486de6a3`;
-    console.log(url);
     fetch(url)
       .then(response => response.json())
       .then(data => this.setState({ trails: data }));
   };
 
   submitSave = async (event,id) => {
-    console.log("save press");
     try {
-      API.post("trails", "/trails", {
+      await API.post("trails", "/trails", {
         body: {
           trailStatus: "saved",
           trailId: id,
-          userComment: "hi"
+          userComment: "No Comment"
         }
         
       });
-      console.log("success!")
+      this.updateUserTrails();
     }
     catch (e) {
       alert(e);
@@ -70,28 +91,43 @@ export default class Search extends Component {
     
   };
 
-  submitComplete = event => {
-    console.log("complete press");
+  submitComplete = async (event, id) => {
+    try {
+      await API.post("trails", "/trails", {
+        body: {
+          trailStatus: "completed",
+          trailId: id,
+          userComment: "No Comment"
+        }
+      });
+      this.updateUserTrails();
+    } catch (e) {
+      alert(e);
+    }
   };
+
+  isDisabled = trail => {
+    if(this.state.userTrails.find(element => element.trailId === trail.id)) {
+      return true;
+    }
+    return false;
+  }
+
+
 
   renderList(t) {
     if (typeof t.trails !== "undefined") {
       return (
         <ListGroup>
           {t.trails.map(trail => (
-            <ListGroupItem
-              header={`${trail.name} (${trail.length} mi) - Rating: ${
-                trail.stars
-              }/5`}
-            >
+            <ListGroupItem header={`${trail.name} (${trail.length} mi) - Rating: ${trail.stars}/5`}>
               {trail.summary !== "Needs Summary" && trail.summary.length > 3
                 ? trail.summary
                 : "No description available"}
-
-              <Button type="submit" onClick={(e) => this.submitSave(e,trail.id)}>
+              <Button type="submit" disabled={this.isDisabled(trail)} onClick={(e) => this.submitSave(e,trail.id)}>
                 Save
               </Button>
-              <Button type="submit" onClick={this.submitComplete}>
+              <Button type="submit" disabled={this.isDisabled(trail)} onClick={(e) => this.submitComplete(e, trail.id)}>
                 Mark Complete
               </Button>
             </ListGroupItem>
