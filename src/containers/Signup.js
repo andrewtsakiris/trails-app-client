@@ -9,7 +9,7 @@ import LoaderButton from "../components/LoaderButton.js";
 import "./Signup.css";
 import { Auth } from "aws-amplify";
 import { Container, Col, Row } from 'reactstrap';
-import { Image } from "react-bootstrap";
+import { Image, Popover, OverlayTrigger, Tooltip} from "react-bootstrap";
 import woods from "./woods.png";
 import { Link } from "react-router-dom";
 
@@ -33,7 +33,8 @@ export default class Signup extends Component {
     return (
       this.state.email.length > 0 &&
       this.state.password.length > 0 &&
-      this.state.password === this.state.confirmPassword
+      this.state.password === this.state.confirmPassword &&
+      (this.state.email.includes(".edu") || this.state.email.includes(".com") || this.state.email.includes(".org"))
     );
   }
 
@@ -85,6 +86,8 @@ export default class Signup extends Component {
       this.setState({ isLoading: false });
     }
   }
+  
+
   
 
   renderConfirmationForm() {
@@ -139,6 +142,11 @@ export default class Signup extends Component {
   }
 
   renderForm() {
+    const popoverLeft = (
+      <Popover id="popover-positioned-left" title="Popover left">
+        <strong>Holy guacamole!</strong> Check this info.
+      </Popover>
+    );
     return (
       <Container className="fill" fluid>
           <Col className="leftCol">
@@ -179,6 +187,7 @@ export default class Signup extends Component {
             placeholder="Password"
           />
         </FormGroup>
+        
         <FormGroup controlId="confirmPassword" bsSize="large">
           <FormControl
             value={this.state.confirmPassword}
@@ -187,6 +196,7 @@ export default class Signup extends Component {
             placeholder="Confirm Password"
           />
         </FormGroup>
+       
         <LoaderButton
           block
           bsSize="large"
@@ -195,7 +205,10 @@ export default class Signup extends Component {
           isLoading={this.state.isLoading}
           text="Sign Up"
           loadingText="Signing up…"
+          
         />
+        
+        
       </form>
       <p className="text-center">
                 Have an account? <Link to="/login">Login!</Link>

@@ -7,7 +7,8 @@ import {
   Button,
   ListGroup,
   ListGroupItem,
-  Panel
+  Panel,
+  Image
 } from "react-bootstrap";
 
 import config from "../config";
@@ -162,6 +163,7 @@ export default class Search extends Component {
                 <Panel.Title>
                 {trail.name}
                 </Panel.Title>
+                
                 </Panel.Heading>
                 <Panel.Body className="panelbody">
                 <p>{`Length: ${trail.length} mi`}</p>
@@ -196,7 +198,7 @@ export default class Search extends Component {
               </Panel.Footer>
             </Panel>
             
-          )) : <p>No trails found for that location</p>}
+          )) : <h3>No trails found for that location</h3>}
         </div>
       );
     }
@@ -211,7 +213,7 @@ export default class Search extends Component {
     return (
       <div className="Search">
         <div className="HeaderBox">
-        <h3>Search Trails Nearby</h3>
+        <h2>Search Trails Nearby</h2>
         
         <form onSubmit={this.handleSubmit}>
           <div className="searchTools">
