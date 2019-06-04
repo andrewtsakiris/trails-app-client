@@ -95,7 +95,7 @@ export default class Login extends Component {
                   Login
                 </Button>
               </form>
-              <p className="text-center">
+              <p className="pNewUser text-center" >
                 New User? <Link to="/signup">Sign Up!</Link>
               </p>
             </div>

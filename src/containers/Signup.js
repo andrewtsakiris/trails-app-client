@@ -210,7 +210,7 @@ export default class Signup extends Component {
         
         
       </form>
-      <p className="text-center">
+      <p className="pNewUser text-center">
                 Have an account? <Link to="/login">Login!</Link>
               </p>
       </div>

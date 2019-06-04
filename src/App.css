@@ -55,8 +55,12 @@
   font-style: normal;
   font-weight: normal;
   
-  
-  height: 5%;
+
+  color: #586B46;
+  background: rgba(255, 255, 255, 0.475497);
+  /* height: 1%; */
+
+
   /* position: absolute; */
   /* top: 50%; */
   /* left: 50%; */
@@ -77,6 +81,7 @@
 }
 .navLogout {
   border-radius: 5px;
+  /* height: 1%; */
 }
 
 .rightNav {
@@ -85,6 +90,7 @@
    */
   margin-top: 5px; 
   margin-bottom: 5px;
+
 }
 
 #emailprofilelink :hover{
