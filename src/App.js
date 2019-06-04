@@ -15,11 +15,15 @@ class App extends Component {
       isAuthenticated: false,
       preferredName: "User"
     };
+
   }
 
+
   updateName = name => {
-    this.setState({preferredName: name})
+    localStorage.setItem('myData', name);
+    this.setState({preferredName:name})
   }
+
   async componentDidMount() {
     try {
       await Auth.currentSession();
@@ -66,8 +70,8 @@ class App extends Component {
         <Navbar.Collapse >
           <Nav pullRight className="rightNav">
             {/* add icon */}
-            <Fragment >
-              <Navbar.Text>{this.state.preferredName}</Navbar.Text>
+            <Fragment>
+              <Navbar.Text>{localStorage.getItem("myData")}</Navbar.Text>
               <NavItem onClick={this.handleLogout} className="navLogout">Logout</NavItem>
             </Fragment>
           
