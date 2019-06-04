@@ -19,6 +19,7 @@ export default class Signup extends Component {
 
     this.state = {
       isLoading: false,
+      preferredName: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -59,6 +60,7 @@ export default class Signup extends Component {
       this.setState({
         newUser
       });
+      this.props.updateName(this.state.email);
     } catch (e) {
       alert(e.message);
     }
@@ -157,6 +159,7 @@ export default class Signup extends Component {
               <div className="signupDiv" class="align-middle">
                 <h1>Sign Up</h1>
       <form onSubmit={this.handleSubmit}>
+     
         <FormGroup controlId="email" bsSize="large">
           <FormControl
             autoFocus

@@ -12,10 +12,14 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isAuthenticated: false
+      isAuthenticated: false,
+      preferredName: "User"
     };
   }
 
+  updateName = name => {
+    this.setState({preferredName: name})
+  }
   async componentDidMount() {
     try {
       await Auth.currentSession();
@@ -43,7 +47,8 @@ class App extends Component {
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      updateName: this.updateName
     };
     return (
       <div className="App container">
@@ -57,7 +62,7 @@ class App extends Component {
           <Nav pullRight>
             {/* add icon */}
             <Fragment>
-              <Navbar.Text>USERNAME</Navbar.Text>
+              <Navbar.Text>{this.state.preferredName}</Navbar.Text>
               <NavItem onClick={this.handleLogout}>Logout</NavItem>
             </Fragment>
           

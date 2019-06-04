@@ -38,6 +38,7 @@ export default class Login extends Component {
 
     //   alert("Logged in");
     
+    this.props.updateName(this.state.email);
     } catch (e) {
       alert(e.message);
     }
