@@ -1,18 +1,57 @@
-/* @media all and (min-width: 480px) { */
+@media all and (min-width: 480px) {
     .Login {
       padding: 60px 0;
       /* width: 50%; */
-      background-color: rgb(211, 211, 211);
+      /* background-color: rgb(211, 211, 211); */
       position: relative;
       margin-top: auto;
       margin-bottom: auto;
+      background-color: #F1F0EB;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      
     }
   
     .Login form {
       /* margin: 0 auto; */
       max-width: 320px;
     }
-    
+    .Login h1 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 40px;
+      line-height: 40px;
+      color: #414141;
+    }
+    .Login button {
+      background: #72AFAD;
+      border-radius: 5px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 19px;
+      line-height: 19px;
+      /* identical to box height */
+
+      text-align: center;
+
+      color: #FFFFFF;
+    }
+
+    .Login p {
+      font-family: 'Josefin Sans', sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 16px;
+      padding: 10px;
+      /* identical to box height */
+
+
+      color: #414141;
+
+    }
     
 
     .col {
@@ -30,6 +69,8 @@
       min-width: 100%;
       width: 100%;
       padding: 0 0 0 0;
+
+      
     }
 
     .App.container {
@@ -99,5 +140,5 @@
     /* .container {
       display: flex;
     } */
-  /* } */
+  }
   

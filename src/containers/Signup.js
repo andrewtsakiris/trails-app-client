@@ -11,6 +11,7 @@ import { Auth } from "aws-amplify";
 import { Container, Col, Row } from 'reactstrap';
 import { Image } from "react-bootstrap";
 import woods from "./woods.png";
+import { Link } from "react-router-dom";
 
 
 export default class Signup extends Component {
@@ -105,17 +106,17 @@ export default class Signup extends Component {
             </div>
           </div>
           </Col>
-          <Col className="Signup" align="center">
-              <div className="signupDiv" class="align-middle">
+          <Col className="SignupColf" align="center">
+              <div className="signupDiv">
                 <h1>Sign Up</h1>
             <form onSubmit={this.handleConfirmationSubmit}>
               <FormGroup controlId="confirmationCode" bsSize="large">
-                <ControlLabel>Confirmation Code</ControlLabel>
                 <FormControl
                   autoFocus
                   type="tel"
                   value={this.state.confirmationCode}
                   onChange={this.handleChange}
+                  placeholder="Confirmation Code"
                 />
                 <HelpBlock>Please check your email for the code.</HelpBlock>
               </FormGroup>
@@ -129,6 +130,7 @@ export default class Signup extends Component {
                 loadingText="Verifying…"
               />
             </form>
+            
             </div>
         </Col>
         
@@ -155,8 +157,8 @@ export default class Signup extends Component {
             </div>
           </div>
           </Col>
-          <Col className="Signup" align="center">
-              <div className="signupDiv" class="align-middle">
+          <Col className="SignupCol" align="center">
+              <div className="signupDiv" >
                 <h1>Sign Up</h1>
       <form onSubmit={this.handleSubmit}>
      
@@ -191,10 +193,13 @@ export default class Signup extends Component {
           disabled={!this.validateForm()}
           type="submit"
           isLoading={this.state.isLoading}
-          text="Signup"
+          text="Sign Up"
           loadingText="Signing up…"
         />
       </form>
+      <p className="text-center">
+                Have an account? <Link to="/login">Login!</Link>
+              </p>
       </div>
         </Col>
         

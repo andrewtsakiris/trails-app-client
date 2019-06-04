@@ -1,7 +1,5 @@
 
-    .Signup {
-      padding: 60px 0;
-    }
+
   
     .Signup form {
       margin: 0 auto;
@@ -16,10 +14,56 @@
 
 
   .SignupCol {
-    background-color: rgb(211, 211, 211);
-      position: relative;
-      margin-top: auto;
-      margin-bottom: auto;
+    /* background-color: rgb(211, 211, 211); */
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    align-items: center;
+
+    background-color: #F1F0EB;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+  }
+
+  .SignupCol h1 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 40px;
+    color: #414141;
+  }
+
+  .SignupCol button {
+    background: #72AFAD;
+    border-radius: 5px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 19px;
+    line-height: 19px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+
+
+
+  .SignupCol p {
+    font-family: 'Josefin Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 16px;
+    padding: 10px;
+    /* identical to box height */
+
+
+    color: #414141;
+
   }
 
   .col {
