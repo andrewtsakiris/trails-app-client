@@ -1,23 +1,25 @@
 import React, { Component, Fragment } from "react";
-import { PageHeader, ListGroup, ListGroupItem, Button } from "react-bootstrap";
+import { PageHeader, ListGroup, ListGroupItem, Button} from "react-bootstrap";
 import "./Profile.css";
 import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import { CognitoAccessToken } from "amazon-cognito-identity-js";
+import {Col} from "reactstrap";
+import CommentModal from "../components/CommentModal";
 
 /*
-  savedTrails and completedTrails have: userComment, trailId, entryId, length, ascent, trailStatus, name
+  savedTrails and completedTrails have: userComment, trailId, entryId, length, ascent, trailStatus, name, maxHeight
 */
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       savedTrails: [],
-      completedTrails: []
+      completedTrails: [],
+      stats: {}
     };
   }
 
-  findMatchingTrail(trails, id) {}
   async componentDidMount() {
     try {
       const t = await API.get("trails", "/trails");
@@ -49,7 +51,8 @@ export default class Profile extends Component {
             length: entry.length,
             trailStatus: item.trailStatus,
             entryId: item.entryId,
-            description: entry.summary
+            description: entry.summary,
+            maxHeight: entry.high
           };
           if (item.trailStatus === "saved") {
             savedTrails.push(toAdd);
@@ -59,15 +62,32 @@ export default class Profile extends Component {
         });
       }
       this.setState({ savedTrails, completedTrails });
+      this.updateStats();
     } catch (e) {
       alert(e);
     }
   }
 
-  handleDelete = (event, entryId, trailStatus) => {
+  updateStats = () => {
+    let numMiles = 0;
+    let maxHeight = -1000;
+    let totalAscent = 0;
+    let maxHeightHike = "";
+    this.state.completedTrails.forEach((entry) => {
+      numMiles += entry.length;
+      totalAscent += entry.ascent;
+      if(entry.maxHeight > maxHeight) {
+        maxHeight = entry.maxHeight;
+        maxHeightHike = entry.name;
+      }
+    });
+    let numHikes = this.state.completedTrails.length;
+    this.setState({stats: {numMiles, numHikes, maxHeight, totalAscent, maxHeightHike}});
+  }
+  handleDelete = async (event, entryId, trailStatus) => {
     try {
       console.log(trailStatus);
-      API.del("trails", `/trails/${entryId}`);
+      await API.del("trails", `/trails/${entryId}`);
       if (trailStatus === "saved") {
         this.setState({
           savedTrails: this.state.savedTrails.filter(
@@ -81,13 +101,14 @@ export default class Profile extends Component {
           )
         });
       }
+      this.updateStats();
     } catch (e) {
       alert(e);
     }
   };
 
-  handleMakeCompleted = (event, trail) => {
-    API.put("trails", `/trails/${trail.entryId}`, {
+  handleMakeCompleted = async (event, trail) => {
+    await API.put("trails", `/trails/${trail.entryId}`, {
       body: {
         userComment: trail.userComment,
         trailStatus: "completed",
@@ -101,8 +122,20 @@ export default class Profile extends Component {
       ),
       completedTrails: this.state.completedTrails.concat(trail)
     });
+    this.updateStats();
   };
 
+  handleUpdateComment = async (trail, newComment) => {
+    trail.userComment = newComment;
+    await API.put("trails", `/trails/${trail.entryId}`, {
+      body: {
+        userComment: newComment,
+        trailStatus: "completed",
+        trailId: trail.trailId,
+      }
+    });
+    this.setState({});
+  }
   renderTrailsList() {
     
     return (
@@ -142,6 +175,7 @@ export default class Profile extends Component {
                 >
                   Delete
                 </Button>
+                <CommentModal trailName={trail.name} trail={trail} handleUpdateComment={this.handleUpdateComment}/>
               </ListGroupItem>
             );
           })}
@@ -151,10 +185,24 @@ export default class Profile extends Component {
   }
   render() {
     return (
+      
       <div className="Profile">
-        <Link to="/search">Find Trails</Link>
         <PageHeader>Your Profile Home Page</PageHeader>
-        {this.renderTrailsList()}
+        <Col className="leftcol">
+          <Link to="/search">Find Trails</Link>
+          
+          {this.renderTrailsList()}
+        </Col>
+        <Col className="rightcol">
+          <h3> Stats </h3>
+          <h5>{`${this.state.stats.numHikes} Hikes Completed`}</h5>
+          <h5>{`${this.state.stats.numMiles} Miles Hiked`}</h5>
+          <h5>{`${this.state.stats.totalAscent} Feet Ascended`}</h5>
+          <h5>{`Highest Elevation: ${this.state.stats.maxHeight} ft (${this.state.stats.maxHeightHike})`}</h5>
+          
+        </Col>
+        
+        
       </div>
     );
   }
