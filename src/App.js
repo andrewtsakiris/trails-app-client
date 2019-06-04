@@ -68,7 +68,7 @@ class App extends Component {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse >
-          <Nav pullRight>
+          <Nav pullRight className="rightNav">
             {/* add icon */}
             <Fragment>
               <Navbar.Text>{localStorage.getItem("myData")}</Navbar.Text>

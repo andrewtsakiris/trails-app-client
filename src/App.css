@@ -19,7 +19,7 @@
   font-family: 'Josefin Sans', sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 30px;
   color: #ffffff;
   float: left;
   position: absolute;
@@ -27,7 +27,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-decoration: none;
-  
   
   
 }
@@ -55,7 +54,34 @@
   font-family: 'Josefin Sans', sans-serif;
   font-style: normal;
   font-weight: normal;
-  /* font-size: 25px; */
+  
+  color: #586B46;
+  background: rgba(255, 255, 255, 0.475497);
+  height: 5%;
+
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  text-decoration: none;
+  border-radius: 5px;
+  /* margin: auto; */
+}
+.navLogout:hover {
+  background-color: rgba(255, 255, 255, 0.575497);
   color: #ffffff;
 }
+.navLogout {
+  border-radius: 5px;
+}
+
+.rightNav {
+  /* background-color: aqua; */
+  /* position: relative;
+   */
+  margin-top: 5px; 
+  margin-bottom: 5px;
+}
+
+
 
