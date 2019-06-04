@@ -307,11 +307,11 @@ export default class Profile extends Component {
             <div className="Stats">
               <h3 id="statstitle"> Stats </h3>
               <p className="Num">{this.state.stats.numHikes}</p>{" "}
-              <div style={{float:"right"}}>Hikes Completed</div>
+              <p>Hikes Completed</p>
               <p className="Num">{`${Math.round(
                 this.state.stats.numMiles * 10
               ) / 10} mi`}</p>{" "}
-              <div style={{float:"right"}}>Distance Hiked</div>
+              <p>Distance Hiked</p>
               <p className="Num">{`${this.state.stats.totalAscent} ft`}</p>{" "}
               <p>Total Ascent</p>
               <p className="Num">{`${this.state.stats.maxHeight} ft`}</p>{" "}
