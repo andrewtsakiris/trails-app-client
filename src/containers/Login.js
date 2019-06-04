@@ -65,7 +65,7 @@ export default class Login extends Component {
           </div>
           </Col>
           <Col className="Login" align="center">
-            <div className="loginDiv" class="align-middle">
+            <div className="loginDiv">
               <h1>Login</h1>
               <form onSubmit={this.handleSubmit}>
                 <FormGroup controlId="email" bsSize="large">
@@ -96,7 +96,7 @@ export default class Login extends Component {
                 </Button>
               </form>
               <p className="text-center">
-                Don't have an account? <Link to="/signup">Sign Up</Link>
+                New User? <Link to="/signup">Sign Up!</Link>
               </p>
             </div>
             
