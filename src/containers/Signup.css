@@ -1,4 +1,4 @@
-@media all and (min-width: 480px) {
+
     .Signup {
       padding: 60px 0;
     }
@@ -7,11 +7,48 @@
       margin: 0 auto;
       max-width: 320px;
     }
-  }
   
   .Signup form span.help-block {
     font-size: 14px;
     padding-bottom: 10px;
     color: #999;
   }
-  
+
+
+  .SignupCol {
+    background-color: rgb(211, 211, 211);
+      position: relative;
+      margin-top: auto;
+      margin-bottom: auto;
+  }
+
+  .col {
+    width: 50%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0 0 0 0;
+    display: inline-block;
+    float: left;
+    /* position: absolute; */
+  }
+  .fill {
+    min-height:100vh;
+    height: 100vh;
+    min-width: 100%;
+    width: 100%;
+    padding: 0 0 0 0;
+  }
+  .App.container {
+    margin: 0 0 0 0;
+    width: 100%;
+    padding: 0 0 0 0;
+    height: 100vh;
+  }
+
+  .signupDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+  }
