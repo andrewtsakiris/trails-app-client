@@ -64,9 +64,9 @@ class App extends Component {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse >
-          <Nav pullRight>
+          <Nav pullRight className="rightNav">
             {/* add icon */}
-            <Fragment>
+            <Fragment >
               <Navbar.Text>{this.state.preferredName}</Navbar.Text>
               <NavItem onClick={this.handleLogout} className="navLogout">Logout</NavItem>
             </Fragment>
