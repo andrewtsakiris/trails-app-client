@@ -10,7 +10,7 @@ export default class CommentModal extends React.Component {
 
     this.state = {
       show: false,
-      text: this.props.trail.userComment
+      text: !this.props.trail.userComment || this.props.trail.userComment.includes("No Comment") ? "" : this.props.trail.userComment
     };
   }
 

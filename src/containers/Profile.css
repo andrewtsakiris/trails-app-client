@@ -1,9 +1,9 @@
 .Profile .leftcol {
-    width: 60%;
+    width: 70%;
   }
   
   .Profile .rightcol {
-    width: 40%;
+    width: 30%;
     text-align: center
   }
 
@@ -11,6 +11,85 @@
     margin-left: 20px
   }
 
- 
+ .imageContainer {
+   height: 100px;
+   width: 100px;
+ }
+
+ .imageContainer img {
+   width: 100px;
+   height: 100px;
+   z-index: 1;
+ }
+
+ .myBody {
+  display: grid;
+  grid-template-columns: 100px auto;
+  grid-column-gap: 20px;
   
+ }
+
+ .floatRight {
+   float: right
+ }
+
+ .outerGrid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 20px;
+ }
+
+ .buttonPanel {
+   grid-column: 2 / 3;
+   
+   
+ }
+
+ Button {
+   float:right;
+ }
+
+ .Stats {
+  width: 300px;
+  background: #FFFFFF;
+  border: 1px solid #979797;
+  box-sizing: border-box;
+  height: 500px;
+  float: right;
+  margin-right: 50px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-column-gap: 0;
+ }
+
+ #statstitle {
+   grid-column: 1 / 3;
+ }
+
+ .rightcol {
+   align-content: center;
+ }
+
+ .Num {
+   font-size: 30px;
+   align-content: right;
+ }
+
+
+.spinning.glyphicon {
+  margin-left: 65%;
+  margin-top: 20%;
+  font-size: 100px;
+  top: 2px;
+  animation: spin 1s infinite linear;
+}
+
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg); }
+  to { transform: scale(1) rotate(360deg); }
+}
+
+
+ 
  

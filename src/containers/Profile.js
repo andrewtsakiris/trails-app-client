@@ -1,10 +1,19 @@
 import React, { Component, Fragment } from "react";
-import { PageHeader, ListGroup, ListGroupItem, Button} from "react-bootstrap";
+import {
+  PageHeader,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Thumbnail,
+  Image,
+  Panel,
+  Glyphicon
+} from "react-bootstrap";
 import "./Profile.css";
 import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import { CognitoAccessToken } from "amazon-cognito-identity-js";
-import {Col} from "reactstrap";
+import { Col } from "reactstrap";
 import CommentModal from "../components/CommentModal";
 
 /*
@@ -16,12 +25,14 @@ export default class Profile extends Component {
     this.state = {
       savedTrails: [],
       completedTrails: [],
-      stats: {}
+      stats: {},
+      isLoading: false
     };
   }
 
   async componentDidMount() {
     try {
+      this.setState({isLoading:true})
       const t = await API.get("trails", "/trails");
       let idurl = "";
       t.forEach(entry => {
@@ -62,6 +73,7 @@ export default class Profile extends Component {
         });
       }
       this.setState({ savedTrails, completedTrails });
+      this.setState({isLoading: false})
       this.updateStats();
     } catch (e) {
       alert(e);
@@ -70,20 +82,22 @@ export default class Profile extends Component {
 
   updateStats = () => {
     let numMiles = 0;
-    let maxHeight = -1000;
+    let maxHeight = 0;
     let totalAscent = 0;
     let maxHeightHike = "";
-    this.state.completedTrails.forEach((entry) => {
+    this.state.completedTrails.forEach(entry => {
       numMiles += entry.length;
       totalAscent += entry.ascent;
-      if(entry.maxHeight > maxHeight) {
+      if (entry.maxHeight > maxHeight) {
         maxHeight = entry.maxHeight;
         maxHeightHike = entry.name;
       }
     });
     let numHikes = this.state.completedTrails.length;
-    this.setState({stats: {numMiles, numHikes, maxHeight, totalAscent, maxHeightHike}});
-  }
+    this.setState({
+      stats: { numMiles, numHikes, maxHeight, totalAscent, maxHeightHike }
+    });
+  };
   handleDelete = async (event, entryId, trailStatus) => {
     try {
       console.log(trailStatus);
@@ -112,7 +126,7 @@ export default class Profile extends Component {
       body: {
         userComment: trail.userComment,
         trailStatus: "completed",
-        trailId: trail.trailId,
+        trailId: trail.trailId
       }
     });
     trail.trailStatus = "completed";
@@ -131,78 +145,123 @@ export default class Profile extends Component {
       body: {
         userComment: newComment,
         trailStatus: "completed",
-        trailId: trail.trailId,
+        trailId: trail.trailId
       }
     });
     this.setState({});
-  }
+  };
+
   renderTrailsList() {
-    
+    const imgurl =
+      "https://cdn-files.apstatic.com/hike/7036619_sqsmall_1555022697.jpg";
     return (
       <Fragment>
-        <h2>Your Saved Trails</h2>
-        {this.state.savedTrails.length < 1 ? <p>No Saved Trails</p> : 
-        <ListGroup>
-          {this.state.savedTrails.map(trail => {
+        <h2>{this.state.isLoading ? "": "Your Saved Trails"}</h2>
+
+        <div className="outerGrid" >
+        {this.state.savedTrails.length < 1 ? (
+          <p>{this.state.isLoading ? "": "No Saved Trails"}</p>
+        ) : (
+          this.state.savedTrails.map(trail => {
             return (
-              <ListGroupItem header={`${trail.name} - (${trail.length} mi)`}>
-                {`Description: ${trail.description}`}
-                <Button
-                  onClick={e =>
-                    this.handleDelete(e, trail.entryId, trail.trailStatus)
-                  }
-                >
-                  Unsave
-                </Button>
-                <Button onClick={e => this.handleMakeCompleted(e, trail)}>
-                  Mark Completed
-                </Button>
-              </ListGroupItem>
+              <Panel>
+                <Panel.Body >
+                  <div className="myBody">
+                  <div className="imageContainer">
+                    <Image src={imgurl} fluid />
+                  </div>
+                  <div className="floatRight">
+                    <p>{`${trail.name} - (${trail.length} mi, ${trail.ascent}ft gain)`}</p>
+                    <p>{`Description: ${trail.description}`}</p>
+                  </div>
+                  <div className="buttonPanel">
+                  <Button
+                    onClick={e =>
+                      this.handleDelete(e, trail.entryId, trail.trailStatus)
+                    }
+                  >
+                    Unsave
+                  </Button>
+                  <Button onClick={e => this.handleMakeCompleted(e, trail)}>
+                    Mark Completed
+                  </Button>
+                  </div>
+                  </div>
+                </Panel.Body>
+              </Panel>
             );
-          })}
-        </ListGroup>}
-        <h2>Your Completed Trails</h2>
-        {this.state.completedTrails.length < 1 ? <p>No Completed Trails</p> : 
-        <ListGroup>
-          {this.state.completedTrails.map(trail => {
+          })
+        )}
+        </div>
+
+        <h2>{this.state.isLoading ? "": "Your Completed Trails"}</h2>
+        {this.state.isLoading ? <Glyphicon glyph="refresh" className="spinning" /> : <Fragment></Fragment>}
+        <div className="outerGrid" >
+        {this.state.completedTrails.length < 1 ? (
+          <p>{this.state.isLoading ? "": "No Completed Trails"}</p>
+        ) : (
+          this.state.completedTrails.map(trail => {
             return (
-              <ListGroupItem header={`${trail.name} - (${trail.length} mi)`}>
-                {`Comments: ${trail.userComment}`}
-                <Button
-                  onClick={e =>
-                    this.handleDelete(e, trail.entryId, trail.trailStatus)
-                  }
-                >
-                  Delete
-                </Button>
-                <CommentModal trailName={trail.name} trail={trail} handleUpdateComment={this.handleUpdateComment}/>
-              </ListGroupItem>
+              <Panel>
+                <Panel.Body >
+                  <div className="myBody">
+                  <div className="imageContainer">
+                    <Image src={imgurl} fluid />
+                  </div>
+                  <div className="floatRight">
+                    <p>{`${trail.name} (${trail.length} mi)`}</p>
+                    {`Comments: ${!trail.userComment ? "No Comment" : trail.userComment}`}
+                    
+                  </div>
+                  <div className="buttonPanel">
+                  
+                  <Button
+                    onClick={e =>
+                      this.handleDelete(e, trail.entryId, trail.trailStatus)
+                    }
+                  >
+                    Delete
+                  </Button>
+                  <CommentModal
+                    trailName={trail.name}
+                    trail={trail}
+                    handleUpdateComment={this.handleUpdateComment}
+                  />
+                  </div>
+                  </div>
+                </Panel.Body>
+              </Panel>
             );
-          })}
-        </ListGroup>}
+          })
+        )}
+        </div>
+
+
       </Fragment>
     );
   }
+  
   render() {
     return (
-      
       <div className="Profile">
-        <PageHeader>Your Profile Home Page</PageHeader>
+        <PageHeader>Profile Home</PageHeader>
         <Col className="leftcol">
-          <Link to="/search">Find Trails</Link>
           
+
           {this.renderTrailsList()}
         </Col>
         <Col className="rightcol">
-          <h3> Stats </h3>
-          <h5>{`${this.state.stats.numHikes} Hikes Completed`}</h5>
-          <h5>{`${this.state.stats.numMiles} Miles Hiked`}</h5>
-          <h5>{`${this.state.stats.totalAscent} Feet Ascended`}</h5>
-          <h5>{`Highest Elevation: ${this.state.stats.maxHeight} ft (${this.state.stats.maxHeightHike})`}</h5>
+          {this.state.isLoading ? <div></div>: 
+          <div className="Stats">
+          <h3 id="statstitle"> Stats </h3>
+          <p className="Num">{this.state.stats.numHikes}</p> <p>Hikes Completed</p>
+          <p className="Num">{`${Math.round(this.state.stats.numMiles*10)/10} mi`}</p> <p>Distance Hiked</p>
+          <p className="Num">{`${this.state.stats.totalAscent} ft`}</p> <p>Total Ascent</p>
+          <p className="Num">{`${this.state.stats.maxHeight} ft`}</p> <p>Peak Elevation</p>
+          <Link to="/search">Find Trails</Link>
+          </div>}
           
         </Col>
-        
-        
       </div>
     );
   }
