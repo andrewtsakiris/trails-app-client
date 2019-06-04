@@ -1,8 +1,55 @@
 .Trails {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-column-gap: 5%;
+  grid-row-gap: 2.5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 40px;
+
+}
+
+.panelbody {
+  height: 200px;
+}
+
+.searchTools {
+  width: 100%;
+  display: grid;
+  margin-right: 20%;
+  margin-left: 20%;
+  grid-template-columns: 20% 10% 30%;
+  grid-column-gap: 20px;
+}
+
+h3 {
+  text-align: center;
+}
+
+.searchTools Button {
+  height: 40px;
+  background: #72AFAD;
+}
+
+.HeaderBox {
+  background: #FFFFFF;
+  border: 1px solid #979797;
+  box-sizing: border-box;
   width: 80%;
   margin-left: 10%;
-  margin-right: 10%
+  margin-right: 10%;
 }
+
+.Search {
+  background: #F2F2F2;
+  min-height: 100%;
+  padding-top: 20px;
+  
+}
+
+
+
+
 
 
   

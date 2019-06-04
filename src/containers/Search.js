@@ -21,8 +21,8 @@ export default class Search extends Component {
     this.state = {
       longitude: "-76",
       latitude: "44",
-      city: "Mountain View",
-      state: "CA",
+      city: "",
+      state: "",
       trails: [],
       userTrails: []
     };
@@ -163,7 +163,7 @@ export default class Search extends Component {
                 {trail.name}
                 </Panel.Title>
                 </Panel.Heading>
-                <Panel.Body>
+                <Panel.Body className="panelbody">
                 <p>{`Length: ${trail.length} mi`}</p>
                 <p>{`Elevation Gain: ${trail.ascent} ft`}</p>
                 <p>{`Rating: ${trail.stars}/5`}</p>
@@ -174,7 +174,7 @@ export default class Search extends Component {
                 </Panel.Body>
              
               <Panel.Footer>
-
+              
               {this.isCompleted(trail) ? null : 
               <Button
                 type="submit"
@@ -210,25 +210,32 @@ export default class Search extends Component {
   render() {
     return (
       <div className="Search">
+        <div className="HeaderBox">
+        <h3>Search Trails Nearby</h3>
+        
         <form onSubmit={this.handleSubmit}>
+          <div className="searchTools">
           
-          <ControlLabel>City</ControlLabel>
-          <FormGroup controlId="city">
+          <FormGroup controlId="city" >
             <FormControl
               onChange={this.handleChange}
               value={this.state.city}
               componentClass="textarea"
+              placeHolder="City/Town"
+              style={{height:40}}
             />
           </FormGroup>
-          <ControlLabel>State</ControlLabel>
-          <FormGroup controlId="state">
+          
+          <FormGroup controlId="state" >
             <FormControl
               onChange={this.handleChange}
               value={this.state.state}
               componentClass="textarea"
+              placeholder="State"
+              style={{height:40}}
             />
           </FormGroup>
-          <Button
+          <Button 
             block
             bsSize="large"
             type="submit"
@@ -236,7 +243,9 @@ export default class Search extends Component {
           >
             Find Trails
           </Button>
+          </div>
         </form>
+        </div>
         <div className="TrailsContainer">
           {this.renderList(this.state.trails)}
         </div>
