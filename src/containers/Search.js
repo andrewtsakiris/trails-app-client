@@ -21,6 +21,8 @@ export default class Search extends Component {
     this.state = {
       longitude: "-76",
       latitude: "44",
+      city: "Mountain View",
+      state: "CA",
       trails: [],
       userTrails: []
     };
@@ -52,7 +54,7 @@ export default class Search extends Component {
 
   handleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value.trim()
+      [event.target.id]: event.target.value
     });
   };
 
@@ -62,12 +64,22 @@ export default class Search extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    
+    
+
+    const formattedCity = this.state.city.trim().replace(" ", "+");
+    const mapsurl = `https://maps.googleapis.com/maps/api/geocode/json?address=${formattedCity},+${this.state.state}&key=AIzaSyA3BWuqTKTB3rFEn29WxJya6jrbop69nVk`
+    await fetch(mapsurl).then(response => response.json()).then(data => {
+      var latitude = data.results[0].geometry.location.lat;
+      var longitude = data.results[0].geometry.location.lng;
+      this.setState({latitude, longitude});
+    }).catch(e => alert("Location not recognized"));
     const url = `https://www.hikingproject.com/data/get-trails?lat=${
       this.state.latitude
     }&lon=${
       this.state.longitude
     }&maxDistance=10&key=200480158-4a1a03c6d4e52f1867f9e2bc486de6a3`;
-    fetch(url)
+    await fetch(url)
       .then(response => response.json())
       .then(data => {
         if (data.trails.length > 0) {
@@ -77,6 +89,8 @@ export default class Search extends Component {
           this.setState({trails: []});
         }
       });
+
+    
   };
 
   submitSave = async (event, id) => {
@@ -190,26 +204,27 @@ export default class Search extends Component {
   }
 
   verifyCoordinates = () => {
-    return this.state.longitude.length > 0 && this.state.latitude.length > 0 && !isNaN(this.state.longitude) && !isNaN(this.state.latitude);
+    return true;
   };
 
   render() {
     return (
       <div className="Search">
         <form onSubmit={this.handleSubmit}>
-          <ControlLabel>Longitude</ControlLabel>
-          <FormGroup controlId="longitude">
+          
+          <ControlLabel>City</ControlLabel>
+          <FormGroup controlId="city">
             <FormControl
               onChange={this.handleChange}
-              value={this.state.longitude}
+              value={this.state.city}
               componentClass="textarea"
             />
           </FormGroup>
-          <ControlLabel>Latitude</ControlLabel>
-          <FormGroup controlId="latitude">
+          <ControlLabel>State</ControlLabel>
+          <FormGroup controlId="state">
             <FormControl
               onChange={this.handleChange}
-              value={this.state.latitude}
+              value={this.state.state}
               componentClass="textarea"
             />
           </FormGroup>
