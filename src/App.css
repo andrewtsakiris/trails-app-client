@@ -19,7 +19,7 @@
   font-family: 'Josefin Sans', sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 30px;
   color: #ffffff;
   float: left;
   position: absolute;
@@ -27,7 +27,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-decoration: none;
-  
   
   
 }
@@ -65,11 +64,15 @@
   /* left: 50%; */
   /* transform: translate(-50%, -50%); */
   text-decoration: none;
+  border-radius: 5px;
   /* margin: auto; */
 }
 .navLogout:hover {
   background-color: rgba(255, 255, 255, 0.575497);
   color: #ffffff;
+}
+.navLogout {
+  border-radius: 5px;
 }
 
 .rightNav {
@@ -77,6 +80,7 @@
   /* position: relative;
    */
   margin-top: 5px; 
+  margin-bottom: 5px;
 }
 
 
