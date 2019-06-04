@@ -32,7 +32,7 @@ export default class Profile extends Component {
 
   async componentDidMount() {
     try {
-      this.setState({isLoading:true})
+      this.setState({ isLoading: true });
       const t = await API.get("trails", "/trails");
       let idurl = "";
       t.forEach(entry => {
@@ -63,7 +63,8 @@ export default class Profile extends Component {
             trailStatus: item.trailStatus,
             entryId: item.entryId,
             description: entry.summary,
-            maxHeight: entry.high
+            maxHeight: entry.high,
+            imgSqSmall: entry.imgSqSmall
           };
           if (item.trailStatus === "saved") {
             savedTrails.push(toAdd);
@@ -73,7 +74,7 @@ export default class Profile extends Component {
         });
       }
       this.setState({ savedTrails, completedTrails });
-      this.setState({isLoading: false})
+      this.setState({ isLoading: false });
       this.updateStats();
     } catch (e) {
       alert(e);
@@ -156,111 +157,168 @@ export default class Profile extends Component {
       "https://cdn-files.apstatic.com/hike/7036619_sqsmall_1555022697.jpg";
     return (
       <Fragment>
-        <h2>{this.state.isLoading ? "": "Your Saved Trails"}</h2>
+        <h2>{this.state.isLoading ? "" : "Your Saved Trails"}</h2>
 
-        <div className="outerGrid" >
-        {this.state.savedTrails.length < 1 ? (
-          <p>{this.state.isLoading ? "": "No Saved Trails"}</p>
-        ) : (
-          this.state.savedTrails.map(trail => {
-            return (
-              <Panel>
-                <Panel.Body >
-                  <div className="myBody">
-                  <div className="imageContainer">
-                    <Image src={imgurl} fluid />
-                  </div>
-                  <div className="floatRight">
-                    <p>{`${trail.name} - (${trail.length} mi, ${trail.ascent}ft gain)`}</p>
-                    <p>{`Description: ${trail.description}`}</p>
-                  </div>
-                  <div className="buttonPanel">
-                  <Button
-                    onClick={e =>
-                      this.handleDelete(e, trail.entryId, trail.trailStatus)
-                    }
-                  >
-                    Unsave
-                  </Button>
-                  <Button onClick={e => this.handleMakeCompleted(e, trail)}>
-                    Mark Completed
-                  </Button>
-                  </div>
-                  </div>
-                </Panel.Body>
-              </Panel>
-            );
-          })
-        )}
+        <div className="outerGrid">
+          {this.state.savedTrails.length < 1 ? (
+            <p>{this.state.isLoading ? "" : "No Saved Trails"}</p>
+          ) : (
+            this.state.savedTrails.map(trail => {
+              return (
+                <Panel>
+                  <Panel.Heading>
+                    <Panel.Title>
+                      <div className="headerGrid">
+                        <div className="imgContainer">
+                          <Image src={trail.imgSqSmall} fluid />
+                        </div>
+                        <div className="infoDiv">
+                          {trail.name.length <= 34 ? (
+                            <p className="pTrailName">{trail.name}</p>
+                          ) : (
+                            <p className="pTrailName">
+                              {trail.name.substring(0, 34) + "..."}
+                            </p>
+                          )}
+                          <div className="subInfoDiv">
+                            <p className="subInfo">{`Length: ${
+                              trail.length
+                            } mi`}</p>
+                            <p className="subInfo">{`Elevation Gain: ${
+                              trail.ascent
+                            } ft`}</p>
+                          </div>
+                        
+                        <Button className="iconButton"
+                          onClick={e =>
+                            this.handleDelete(
+                              e,
+                              trail.entryId,
+                              trail.trailStatus
+                            )
+                          }
+                        >
+                          Delete
+                        </Button>
+                        <Button className="iconButton"
+                          onClick={e => this.handleMakeCompleted(e, trail)}
+                        >
+                          <svg width="20" height="20" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17 33C25.8366 33 33 25.8366 33 17C33 8.16344 25.8366 1 17 1C8.16344 1 1 8.16344 1 17C1 25.8366 8.16344 33 17 33Z" fill="white" stroke="#6C6666" stroke-width="2"/>
+                          <path d="M14.7565 26C14.5523 26 14.358 25.8988 14.2151 25.7229L8.2219 18.2971C7.92428 17.9287 7.92677 17.3342 8.225 16.9696C8.52634 16.602 9.00772 16.6058 9.30409 16.9734L14.7577 23.7318L25.6972 10.2752C25.9961 9.90828 26.4787 9.90828 26.7763 10.2752C27.0746 10.6413 27.0746 11.2357 26.7763 11.6026L15.2961 25.7252C15.1531 25.901 14.9589 26 14.7565 26Z" fill="#6C6666" stroke="#6C6666"/>
+                          </svg>
+                        </Button>
+                        </div>
+                      </div>
+                    </Panel.Title>
+                  </Panel.Heading>
+                  <Panel.Body className="panelbody">
+                    {!trail.description ? "No description available" : trail.description }
+                  </Panel.Body>
+                </Panel>
+
+
+                
+              );
+            })
+          )}
         </div>
 
-        <h2>{this.state.isLoading ? "": "Your Completed Trails"}</h2>
-        {this.state.isLoading ? <Glyphicon glyph="refresh" className="spinning" /> : <Fragment></Fragment>}
-        <div className="outerGrid" >
-        {this.state.completedTrails.length < 1 ? (
-          <p>{this.state.isLoading ? "": "No Completed Trails"}</p>
+        <h2>{this.state.isLoading ? "" : "Your Completed Trails"}</h2>
+        {this.state.isLoading ? (
+          <Glyphicon glyph="refresh" className="spinning" />
         ) : (
-          this.state.completedTrails.map(trail => {
-            return (
-              <Panel>
-                <Panel.Body >
-                  <div className="myBody">
-                  <div className="imageContainer">
-                    <Image src={imgurl} fluid />
-                  </div>
-                  <div className="floatRight">
-                    <p>{`${trail.name} (${trail.length} mi)`}</p>
-                    {`Comments: ${!trail.userComment ? "No Comment" : trail.userComment}`}
-                    
-                  </div>
-                  <div className="buttonPanel">
-                  
-                  <Button
-                    onClick={e =>
-                      this.handleDelete(e, trail.entryId, trail.trailStatus)
-                    }
-                  >
-                    Delete
-                  </Button>
-                  <CommentModal
-                    trailName={trail.name}
-                    trail={trail}
-                    handleUpdateComment={this.handleUpdateComment}
-                  />
-                  </div>
-                  </div>
-                </Panel.Body>
-              </Panel>
-            );
-          })
+          <Fragment />
         )}
+        <div className="outerGrid">
+          {this.state.completedTrails.length < 1 ? (
+            <p>{this.state.isLoading ? "" : "No Completed Trails"}</p>
+          ) : (
+            this.state.completedTrails.map(trail => {
+              return (
+                <Panel>
+                  <Panel.Heading>
+                    <Panel.Title>
+                      <div className="headerGrid">
+                        <div className="imgContainer">
+                          <Image src={trail.imgSqSmall} fluid />
+                        </div>
+                        <div className="infoDiv">
+                          {trail.name.length <= 34 ? (
+                            <p className="pTrailName">{trail.name}</p>
+                          ) : (
+                            <p className="pTrailName">
+                              {trail.name.substring(0, 34) + "..."}
+                            </p>
+                          )}
+                          <div className="subInfoDiv">
+                            <p className="subInfo">{`Length: ${
+                              trail.length
+                            } mi`}</p>
+                            <p className="subInfo">{`Elevation Gain: ${
+                              trail.ascent
+                            } ft`}</p>
+                          </div>
+                        
+                        <Button className="iconButton"
+                          onClick={e =>
+                            this.handleDelete(
+                              e,
+                              trail.entryId,
+                              trail.trailStatus
+                            )
+                          }
+                        >
+                          Delete
+                        </Button>
+                        <CommentModal className="iconButton"
+                          trailName={trail.name}
+                          trail={trail}
+                          handleUpdateComment={this.handleUpdateComment}
+                        />
+                      </div>
+                      </div>
+                    </Panel.Title>
+                  </Panel.Heading>
+                  <Panel.Body className="panelbody">
+                    {!trail.userComment ||
+                    trail.userComment.includes("No Comment")
+                      ? "No Comment"
+                      : `Your Comment: ${trail.userComment}`}
+                  </Panel.Body>
+                </Panel>
+              );
+            })
+          )}
         </div>
-
-
       </Fragment>
     );
   }
-  
+
   render() {
     return (
       <div className="Profile">
         <PageHeader>Profile Home</PageHeader>
-        <Col className="leftcol">
-          
-
-          {this.renderTrailsList()}
-        </Col>
+        <Col className="leftcol">{this.renderTrailsList()}</Col>
         <Col className="rightcol">
-          {this.state.isLoading ? <div></div>: 
-          <div className="Stats">
-          <h3 id="statstitle"> Stats </h3>
-          <p className="Num">{this.state.stats.numHikes}</p> <p>Hikes Completed</p>
-          <p className="Num">{`${Math.round(this.state.stats.numMiles*10)/10} mi`}</p> <p>Distance Hiked</p>
-          <p className="Num">{`${this.state.stats.totalAscent} ft`}</p> <p>Total Ascent</p>
-          <p className="Num">{`${this.state.stats.maxHeight} ft`}</p> <p>Peak Elevation</p>
-          <Link to="/search">Find Trails</Link>
-          </div>}
-          
+          {this.state.isLoading ? (
+            <div />
+          ) : (
+            <div className="Stats">
+              <h3 id="statstitle"> Stats </h3>
+              <p className="Num">{this.state.stats.numHikes}</p>{" "}
+              <div style={{float:"right"}}>Hikes Completed</div>
+              <p className="Num">{`${Math.round(
+                this.state.stats.numMiles * 10
+              ) / 10} mi`}</p>{" "}
+              <div style={{float:"right"}}>Distance Hiked</div>
+              <p className="Num">{`${this.state.stats.totalAscent} ft`}</p>{" "}
+              <p>Total Ascent</p>
+              <p className="Num">{`${this.state.stats.maxHeight} ft`}</p>{" "}
+              <p>Peak Elevation</p>
+              <Link to="/search">Find Trails</Link>
+            </div>
+          )}
         </Col>
       </div>
     );
