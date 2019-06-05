@@ -91,11 +91,12 @@
  .Num {
    font-size: 30px;
    align-content: right;
+   color: #72AFAD;
  }
 
  
 
-.spinning.glyphicon {
+.myGlyph {
   margin-left: 65%;
   margin-top: 20%;
   font-size: 100px;
@@ -196,23 +197,28 @@ p.subInfo {
  }
  .divAddTrail p{
    float: right;
-   margin: 5px;
+   margin-top: 15px;
+   margin-bottom: 15px;
    font-family: "Lato" sans-serif;
   font-style: normal;
   font-weight: 300;
-  font-size: 24px;
+  font-size: 21px;
+  color: #333;
   /* line-height: 29px; */
  }
  .divAddTrail .addTrailButton {
    float: right;
    width: 40px;
    height: 40px;
-   margin: 5px;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   margin-left: 10px;
+   margin-right: 5px;
 
  }
  .divAddTrail {
    margin: 10px;
-   height: 100%;
+   height: 60px;
  }
 
  .noSavedTrails {
@@ -252,4 +258,46 @@ p.subInfo {
   min-height: 100%;
   margin-left: 0px;
   padding-left: 20px;
+}
+
+p.comp {
+  width: 30%;
+  float: left;
+}
+.savedIcon {
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 5px;
+  margin-right: 10px;
+}
+.savedTitle{
+  display: block;
+  width: 100%;
+  position: relative;
+  height: 120px;
+  /* float: left; */
+}
+.compTitle{
+  display: block;
+  width: 100%;
+  height: 110px;
+  position: relative;
+  /* float: left; */
+}
+
+p.lefttitle {
+  width: 30%;
+  float: left;
+}
+.compIcon {
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  padding: 5px;
+  margin-right: 10px;
 }
