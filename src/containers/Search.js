@@ -225,7 +225,7 @@ export default class Search extends Component {
                           </Button>
                           
                           }{" "}
-                         }
+                         
 
 
                         {this.isSaved(trail) ? null :

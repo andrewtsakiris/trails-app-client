@@ -13,6 +13,7 @@
   border: 1px solid #979797;
   box-sizing: border-box;
   height: 65px;
+  margin: 0 0 0 0;
 }
 .navbar-brand a {
   /* float: left; */

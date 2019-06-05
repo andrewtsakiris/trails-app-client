@@ -157,14 +157,20 @@ export default class Profile extends Component {
   renderTrailsList() {
     const imgurl =
       "https://cdn-files.apstatic.com/hike/7036619_sqsmall_1555022697.jpg";
+    const noSavedTrails = <div><p className="italic noSavedTrails">No Saved Trails</p></div>;
+    const findMoreTrails = <Link to="/search" className="findMoreTrails">Find more trails!</Link>;
+    const noCompTrails = <div><p className="italic noSavedTrails">No Completed Trails</p></div>;
     return (
       <Fragment>
         <h2>{this.state.isLoading ? "" : "Your Saved Trails"}</h2>
 
         <div className="outerGrid">
-          {this.state.savedTrails.length < 1 ? (
-            <p>{this.state.isLoading ? "" : "No Saved Trails"}</p>
-          ) : (
+          {this.state.savedTrails.length < 1 ? 
+            this.state.isLoading ? null :  <Fragment>
+              {noSavedTrails}
+              {findMoreTrails} </Fragment>
+           
+           : (
             this.state.savedTrails.map(trail => {
               return (
                 <Panel>
@@ -235,16 +241,19 @@ export default class Profile extends Component {
           )}
         </div>
 
-        <h2>{this.state.isLoading ? "" : "Your Completed Trails"}</h2>
+        <h2>
+        {this.state.isLoading ? "" : "Your Completed Trails"}</h2>
         {this.state.isLoading ? (
           <Glyphicon glyph="refresh" className="spinning" />
         ) : (
           <Fragment />
         )}
         <div className="outerGrid">
-          {this.state.completedTrails.length < 1 ? (
-            <p>{this.state.isLoading ? "" : "No Completed Trails"}</p>
-          ) : (
+          {this.state.completedTrails.length < 1 ? 
+            this.state.isLoading ? null :  <Fragment>
+            {noCompTrails}
+            {findMoreTrails} </Fragment>
+              : (
             this.state.completedTrails.map(trail => {
               return (
                 <Panel>

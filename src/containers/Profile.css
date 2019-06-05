@@ -57,6 +57,8 @@
   height: 100%;
   float: right;
   margin-right: 50px;
+  margin-top: 20px;
+  padding: 20px;
   /* display: grid; */
   /* grid-template-columns: 40% 60%;
   grid-column-gap: 0; */
@@ -207,3 +209,12 @@ p.subInfo {
    height: 100%;
  }
 
+ .noSavedTrails {
+   float: right;
+   margin: 10px;
+   /* width: 20%; */
+ }
+.findMoreTrails {
+  width: 30%;
+  margin: 10px;
+}
