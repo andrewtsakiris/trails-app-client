@@ -15,15 +15,19 @@ import config from "../config";
 import "./Search.css";
 import { API } from "aws-amplify";
 
+import logo from "./logo.png";
+
 export default class Search extends Component {
   constructor(props) {
     super(props);
+    let lastCity = localStorage.getItem("city");
+    let lastState = localStorage.getItem("state");
 
     this.state = {
       longitude: "-76",
       latitude: "44",
-      city: "",
-      state: "",
+      city: lastCity ? lastCity : "",
+      state: lastState ? lastState: "",
       trails: [],
       userTrails: []
     };
@@ -47,6 +51,7 @@ export default class Search extends Component {
   }
   async componentDidMount() {
     this.updateUserTrails();
+    if(this.state.city) this.submit();
   }
 
   validateForm() {
@@ -64,10 +69,17 @@ export default class Search extends Component {
   };
 
   handleSubmit = async event => {
-    event.preventDefault();
+    if(event) event.preventDefault();
+    this.submit();
     
     
+    
+    
+  };
 
+  submit = async () => {
+    localStorage.setItem("city", this.state.city);
+    localStorage.setItem("state", this.state.state);
     const formattedCity = this.state.city.trim().replace(" ", "+");
     const mapsurl = `https://maps.googleapis.com/maps/api/geocode/json?address=${formattedCity},+${this.state.state}&key=AIzaSyA3BWuqTKTB3rFEn29WxJya6jrbop69nVk`
     await fetch(mapsurl).then(response => response.json()).then(data => {
@@ -91,8 +103,7 @@ export default class Search extends Component {
         }
       });
 
-    
-  };
+  }
 
   submitSave = async (event, id) => {
     try {
@@ -164,7 +175,7 @@ export default class Search extends Component {
                 <Panel.Title>
                   <div className="headerGrid">
                       <div className="imgContainer">
-                    <Image src={trail.imgSqSmall} fluid />
+                    <Image src={trail.imgSqSmall ? trail.imgSqSmall : logo }  fluid />
                     </div>
                     <div className="infoDiv">
                       {trail.name.length <= 34 ?
@@ -283,6 +294,7 @@ export default class Search extends Component {
             bsSize="large"
             type="submit"
             disabled={!this.verifyCoordinates()}
+            id="findtrailsbutton"
           >
             Find Trails
           </Button>
