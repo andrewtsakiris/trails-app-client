@@ -224,8 +224,8 @@ export default class Search extends Component {
                           </svg> 
                           </Button>
                           
-                          }{" "}
-                         }
+                          }
+                         
 
 
                         {this.isSaved(trail) ? null :
