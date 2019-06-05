@@ -15,6 +15,7 @@ import { API } from "aws-amplify";
 import { CognitoAccessToken } from "amazon-cognito-identity-js";
 import { Col, Row } from "reactstrap";
 import CommentModal from "../components/CommentModal";
+import logo from "./logo.png";
 
 /*
   savedTrails and completedTrails have: userComment, trailId, entryId, length, ascent, trailStatus, name, maxHeight
@@ -170,7 +171,7 @@ export default class Profile extends Component {
                     <Panel.Title>
                       <div className="headerGrid">
                         <div className="imgContainer">
-                          <Image src={trail.imgSqSmall} fluid />
+                        <Image src={trail.imgSqSmall ? trail.imgSqSmall : logo }  fluid />
                         </div>
                         <div className="infoDiv">
                           {trail.name.length <= 34 ? (
@@ -183,7 +184,7 @@ export default class Profile extends Component {
                           <div className="subInfoDiv">
                             <p className="subInfo">{`Length: ${
                               trail.length
-                            } mi`}</p>
+                            } mi   `}</p>
                             <p className="subInfo">{`Elevation Gain: ${
                               trail.ascent
                             } ft`}</p>
@@ -246,7 +247,7 @@ export default class Profile extends Component {
                     <Panel.Title>
                       <div className="headerGrid">
                         <div className="imgContainer">
-                          <Image src={trail.imgSqSmall} fluid />
+                        <Image src={trail.imgSqSmall ? trail.imgSqSmall : logo }  fluid />
                         </div>
                         <div className="infoDiv">
                           {trail.name.length <= 34 ? (
@@ -283,6 +284,7 @@ export default class Profile extends Component {
                         </Button>
                         <CommentModal 
                         // className="iconButton"
+                          id="commentButton"
                           trailName={trail.name}
                           trail={trail}
                           handleUpdateComment={this.handleUpdateComment}
@@ -316,7 +318,10 @@ export default class Profile extends Component {
             <div />
           ) : (
             <div className="Stats">
-              <h3 id="statstitle">Your Stats </h3>
+              <Row>
+                <h3 id="statstitle">YOUR STATS</h3>
+              </Row>
+              
               <Row>
                 <Col>
                 <p className="Num">{this.state.stats.numHikes}</p>{" "}
@@ -351,19 +356,19 @@ export default class Profile extends Component {
                   <p className="pStats align-bottom">Peak Elevation</p> 
                 </Col>
               </Row>
-              <Link to="/search">
-                <div>
-                  <p>Add a new trail</p>
-                  
-                  <svg width="30" height="30" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#72AFAD"/>
-                    <path d="M32.5 17V49" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M48 33.5H16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                
-
-              </Link>
+              <Row>
+                <Link to="/search">
+                  <div className="divAddTrail">
+                    <svg width="30" height="30" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="addTrailButton">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#72AFAD"/>
+                      <path d="M32.5 17V49" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M48 33.5H16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p >Add a new trail</p>
+                  </div>
+                </Link>
+              </Row>
+              
             </div>
           )}
         </Col>

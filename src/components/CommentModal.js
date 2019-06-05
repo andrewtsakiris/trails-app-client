@@ -31,7 +31,7 @@ export default class CommentModal extends React.Component {
   render() {
     return (
       <div>
-        <Button bsStyle="primary" bsSize="small" onClick={this.handleShow} className="iconButton" classID="editButton">
+        <Button bsStyle="primary" bsSize="small" onClick={this.handleShow} className="iconButton">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20.4767 3.27633L4.09521 19.6578L8.34165 23.9042L24.7231 7.52276L20.4767 3.27633Z" fill="#6C6666"/>
         <path d="M2.12354 25.8764L3.27662 20.4769L7.52305 24.7233L2.12354 25.8764Z" fill="#6C6666"/>
