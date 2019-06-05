@@ -13,7 +13,7 @@ import "./Profile.css";
 import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import { CognitoAccessToken } from "amazon-cognito-identity-js";
-import { Col } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import CommentModal from "../components/CommentModal";
 
 /*
@@ -198,7 +198,12 @@ export default class Profile extends Component {
                             )
                           }
                         >
-                          Delete
+                          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="18" cy="18" r="17" fill="white" stroke="#6C6666" stroke-width="2"/>
+                          <line x1="10.4142" y1="10" x2="25.9706" y2="25.5563" stroke="#6C6666" stroke-width="2" stroke-linecap="round"/>
+                          <line x1="11" y1="25.5563" x2="26.5563" y2="10" stroke="#6C6666" stroke-width="2" stroke-linecap="round"/>
+                          </svg>
+
                         </Button>
                         <Button className="iconButton"
                           onClick={e => this.handleMakeCompleted(e, trail)}
@@ -269,9 +274,15 @@ export default class Profile extends Component {
                             )
                           }
                         >
-                          Delete
+                          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="18" cy="18" r="17" fill="white" stroke="#6C6666" stroke-width="2"/>
+                          <line x1="10.4142" y1="10" x2="25.9706" y2="25.5563" stroke="#6C6666" stroke-width="2" stroke-linecap="round"/>
+                          <line x1="11" y1="25.5563" x2="26.5563" y2="10" stroke="#6C6666" stroke-width="2" stroke-linecap="round"/>
+                          </svg>
+
                         </Button>
-                        <CommentModal className="iconButton"
+                        <CommentModal 
+                        // className="iconButton"
                           trailName={trail.name}
                           trail={trail}
                           handleUpdateComment={this.handleUpdateComment}
@@ -298,25 +309,61 @@ export default class Profile extends Component {
   render() {
     return (
       <div className="Profile">
-        <PageHeader>Profile Home</PageHeader>
+        {/* <PageHeader>Profile Home</PageHeader> */}
         <Col className="leftcol">{this.renderTrailsList()}</Col>
         <Col className="rightcol">
           {this.state.isLoading ? (
             <div />
           ) : (
             <div className="Stats">
-              <h3 id="statstitle"> Stats </h3>
-              <p className="Num">{this.state.stats.numHikes}</p>{" "}
-              <div style={{float:"right"}}>Hikes Completed</div>
-              <p className="Num">{`${Math.round(
+              <h3 id="statstitle">Your Stats </h3>
+              <Row>
+                <Col>
+                <p className="Num">{this.state.stats.numHikes}</p>{" "}
+                </Col>
+                <Col className="pStatsCol">
+                <p className="pStats">Hikes Completed</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                <p className="Num">{`${Math.round(
                 this.state.stats.numMiles * 10
               ) / 10} mi`}</p>{" "}
-              <div style={{float:"right"}}>Distance Hiked</div>
-              <p className="Num">{`${this.state.stats.totalAscent} ft`}</p>{" "}
-              <p>Total Ascent</p>
-              <p className="Num">{`${this.state.stats.maxHeight} ft`}</p>{" "}
-              <p>Peak Elevation</p>
-              <Link to="/search">Find Trails</Link>
+                </Col>
+                <Col className="pStatsCol align-bottom">
+                  <p className="pStats">Distance Hiked</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p className="Num">{`${this.state.stats.totalAscent} ft`}</p>{" "}
+                </Col>
+                <Col className="pStatsCol">
+                  <p className="pStats">Total Ascent</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p className="Num">{`${this.state.stats.maxHeight} ft`}</p>{" "}
+                </Col>
+                <Col className="pStatsCol">
+                  <p className="pStats align-bottom">Peak Elevation</p> 
+                </Col>
+              </Row>
+              <Link to="/search">
+                <div>
+                  <p>Add a new trail</p>
+                  
+                  <svg width="30" height="30" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#72AFAD"/>
+                    <path d="M32.5 17V49" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M48 33.5H16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                
+
+              </Link>
             </div>
           )}
         </Col>
