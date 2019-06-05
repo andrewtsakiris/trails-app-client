@@ -199,10 +199,10 @@ export default class Search extends Component {
                     <Image src={trail.imgSqSmall ? trail.imgSqSmall : logo }  fluid />
                     </div>
                     <div className="infoDiv">
-                      {trail.name.length <= 34 ?
+                      <a href={trail.url}>{trail.name.length <= 34 ?
                       <p className="pTrailName">{trail.name}</p>
                       : <p className="pTrailName">{(trail.name).substring(0,34) + "..."}</p>
-                    }
+                    }</a>
                       <div className="subInfoDiv">
                       <p className="subInfo">{`Length: ${trail.length} mi`}</p>
                       <p className="subInfo">{`Elevation Gain: ${trail.ascent} ft`}</p>
