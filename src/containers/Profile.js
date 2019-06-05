@@ -65,7 +65,8 @@ export default class Profile extends Component {
             entryId: item.entryId,
             description: entry.summary,
             maxHeight: entry.high,
-            imgSqSmall: entry.imgSqSmall
+            imgSqSmall: entry.imgSqSmall,
+            stars: entry.stars
           };
           if (item.trailStatus === "saved") {
             savedTrails.push(toAdd);
@@ -181,16 +182,16 @@ export default class Profile extends Component {
                               {trail.name.substring(0, 34) + "..."}
                             </p>
                           )}
-                          <div className="subInfoDiv">
-                            <p className="subInfo">{`Length: ${
-                              trail.length
-                            } mi   `}</p>
-                            <p className="subInfo">{`Elevation Gain: ${
-                              trail.ascent
-                            } ft`}</p>
-                          </div>
-                        
-                        <Button className="iconButton"
+                          {/* <div className="subInfoDiv"> */}
+                            <Row>
+                              <p className="subInfo">{`Length: ${trail.length} mi`}</p>
+                            </Row>
+                            <Row>
+                              <p className="subInfo">{`Elevation Gain: ${trail.ascent} ft`}</p>
+                            </Row>
+                            <Row>
+                              <p className="subInfo">{`Rating: ${trail.stars}/5`}</p>
+                              <Button className="iconButton"
                           onClick={e =>
                             this.handleDelete(
                               e,
@@ -214,12 +215,16 @@ export default class Profile extends Component {
                           <path d="M14.7565 26C14.5523 26 14.358 25.8988 14.2151 25.7229L8.2219 18.2971C7.92428 17.9287 7.92677 17.3342 8.225 16.9696C8.52634 16.602 9.00772 16.6058 9.30409 16.9734L14.7577 23.7318L25.6972 10.2752C25.9961 9.90828 26.4787 9.90828 26.7763 10.2752C27.0746 10.6413 27.0746 11.2357 26.7763 11.6026L15.2961 25.7252C15.1531 25.901 14.9589 26 14.7565 26Z" fill="#6C6666" stroke="#6C6666"/>
                           </svg>
                         </Button>
+                            </Row>
+                          {/* </div> */}
+                        
+                        
                         </div>
                       </div>
                     </Panel.Title>
                   </Panel.Heading>
                   <Panel.Body className="panelbody">
-                    {!trail.description ? "No description available" : trail.description }
+                    {!trail.description || trail.description.includes("Needs Summary") ? <p className="italic">No description available</p> : trail.description }
                   </Panel.Body>
                 </Panel>
 
@@ -296,7 +301,7 @@ export default class Profile extends Component {
                   <Panel.Body className="panelbody">
                     {!trail.userComment ||
                     trail.userComment.includes("No Comment")
-                      ? "No Comment"
+                      ? <p className="italic">Add a Comment!</p>
                       : `Your Comment: ${trail.userComment}`}
                   </Panel.Body>
                 </Panel>

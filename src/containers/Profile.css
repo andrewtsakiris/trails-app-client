@@ -119,14 +119,29 @@ p.subInfo {
   float: left;
 }
 .subInfoDiv {
+  /* width: 60%;
+  height: 50%;
+  display: block;
+  margin-right: 0px; */
+
+
+}
+.infoDiv .row {
+  margin: 0 0 0 0;
   width: 50%;
+  display: inline;
+
 }
 .infoDiv {
-  padding: 5px;
+  padding: 5px 5px 5px 0px;
+  margin: 0 0 0 0;
   /* margin: 3 3 3 3; */
 }
 .panel-heading {
   padding: 0;
+}
+.italic {
+  font-style: italic;
 }
 .iconButton{
   width: 25px;
@@ -137,6 +152,7 @@ p.subInfo {
   background: none;
   /* padding: 3px; */
   margin-left: 8px;
+
 }
 
 
