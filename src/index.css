@@ -6,6 +6,9 @@ body {
   color: #2e3b51;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+    background-color: #F1F0EB;
+  
 }
 
 h1, h2, h3, h4, h5, h6 {

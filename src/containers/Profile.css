@@ -1,11 +1,15 @@
 .Profile .leftcol {
     width: 70%;
   }
+
+  
   
   .Profile .rightcol {
     width: 30%;
     text-align: center
   }
+
+ 
 
   .Profile {
     margin-left: 20px
@@ -57,6 +61,8 @@
   height: 100%;
   float: right;
   margin-right: 50px;
+  margin-top: 50px;
+  padding: 20px;
   /* display: grid; */
   /* grid-template-columns: 40% 60%;
   grid-column-gap: 0; */
@@ -64,10 +70,9 @@
 
  #statstitle {
    /* grid-column: 1 / 3; */
-   font-family: 'Lato', sans-serif;
-   font-style: normal; 
-   font-weight: 300;
-   font-size: 24px; 
+   
+   font-weight: 100;
+   font-size: 28px; 
    line-height: 29px;
    float: left;
    margin: 15px;
@@ -81,11 +86,14 @@
    align-content: center;
  }
 
+ 
+
  .Num {
    font-size: 30px;
    align-content: right;
  }
 
+ 
 
 .spinning.glyphicon {
   margin-left: 65%;
@@ -119,14 +127,29 @@ p.subInfo {
   float: left;
 }
 .subInfoDiv {
+  /* width: 60%;
+  height: 50%;
+  display: block;
+  margin-right: 0px; */
+
+
+}
+.infoDiv .row {
+  margin: 0 0 0 0;
   width: 50%;
+  display: inline;
+
 }
 .infoDiv {
-  padding: 5px;
+  padding: 5px 5px 5px 0px;
+  margin: 0 0 0 0;
   /* margin: 3 3 3 3; */
 }
 .panel-heading {
   padding: 0;
+}
+.italic {
+  font-style: italic;
 }
 .iconButton{
   width: 25px;
@@ -137,6 +160,7 @@ p.subInfo {
   background: none;
   /* padding: 3px; */
   margin-left: 8px;
+
 }
 
 
@@ -191,3 +215,41 @@ p.subInfo {
    height: 100%;
  }
 
+ .noSavedTrails {
+   float: right;
+   margin: 10px;
+   /* width: 20%; */
+ }
+.findMoreTrails {
+  width: 30%;
+  margin-top: 60px;
+  margin-bottom: 50px;
+}
+
+.lefttitle {
+  text-align: left;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  font-size: 28px;
+  font-weight: 100
+}
+
+.comp {
+  text-align: left;
+  margin-bottom: 40px;
+  margin-top: 30px;
+  font-size: 28px;
+  font-weight: 100
+}
+
+.highmargin {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.Profile {
+  background: F1F0EB;
+  min-height: 100%;
+  margin-left: 0px;
+  padding-left: 20px;
+}

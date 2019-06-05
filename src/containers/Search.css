@@ -54,9 +54,10 @@ h2 {
 }
 
 .Search {
-  background: #F2F2F2;
+  background: #F1F0EB;
   min-height: 100%;
   padding-top: 20px;
+  
 }
 
 .Num {
@@ -113,10 +114,11 @@ p.subInfo {
 
 .Trails p, h1, h2, button{
   font-family: 'Lato', sans-serif;
+  font-weight: 10px;
 }
 .headerGrid p,h1,h2,button {
   font-family: 'Lato', sans-serif;
-  font-weight: 300px;
+  font-weight: 300;
 }
 
 #findtrailsbutton {

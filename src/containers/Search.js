@@ -29,7 +29,8 @@ export default class Search extends Component {
       city: lastCity ? lastCity : "",
       state: lastState ? lastState: "",
       trails: [],
-      userTrails: []
+      userTrails: [],
+      isLoading: false
     };
   }
 
@@ -82,6 +83,7 @@ export default class Search extends Component {
   submit = async () => {
     localStorage.setItem("city", this.state.city);
     localStorage.setItem("state", this.state.state);
+    this.setState({isLoading: true});
     const formattedCity = this.state.city.trim().replace(" ", "+");
     const mapsurl = `https://maps.googleapis.com/maps/api/geocode/json?address=${formattedCity},+${this.state.state}&key=AIzaSyA3BWuqTKTB3rFEn29WxJya6jrbop69nVk`
     await fetch(mapsurl).then(response => response.json()).then(data => {
@@ -104,6 +106,7 @@ export default class Search extends Component {
           this.setState({trails: []});
         }
       });
+      this.setState({isLoading: false});
 
   }
 
@@ -224,8 +227,9 @@ export default class Search extends Component {
                           </svg> 
                           </Button>
                           
+
                           }
-                         
+      
 
 
                         {this.isSaved(trail) ? null :
@@ -270,7 +274,7 @@ export default class Search extends Component {
              
             </Panel>
             
-          )) : <h3>No trails found for that location</h3>}
+          )) : <h3>{this.state.isLoading ? "": "No trails found for that location"}</h3>}
         </div>
       );
     }
