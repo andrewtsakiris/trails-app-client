@@ -109,7 +109,7 @@ export default class Signup extends Component {
             </div>
           </div>
           </Col>
-          <Col className="SignupColf" align="center">
+          <Col className="SignupCol" align="center">
               <div className="signupDiv">
                 <h1>Sign Up</h1>
             <form onSubmit={this.handleConfirmationSubmit}>
